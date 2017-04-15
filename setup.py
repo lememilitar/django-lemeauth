@@ -17,6 +17,10 @@ AUTHOR_EMAIL = "gwmoura@gcodetec.com"
 URL = "github.com/lememilitar/django-lemeauth"
 VERSION = "0.1"
 
+install_requires = [
+    'git+https://github.com/lememilitar/lemeauthpy.git'
+]
+
 setup(
     name=NAME,
     version=VERSION,
@@ -27,6 +31,7 @@ setup(
     license="BSD",
     url=URL,
     packages=find_packages(exclude=["tests.*", "tests"]),
+    install_requires=install_requires,
     classifiers=[
         "Development Status :: 3 - Alpha",
         "Environment :: Web Environment",
