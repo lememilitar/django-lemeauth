@@ -15,6 +15,7 @@ class LemeAuthBackend(object):
             except:
                 user = User(username=username)
                 user.is_staff = True
+                user.is_active = True
                 user.save()
             return user
         return None

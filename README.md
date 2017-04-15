@@ -14,12 +14,12 @@ Quick start
 
     INSTALLED_APPS = [
         ...
-        'lemeauth',
+        'django_lemeauth',
     ]
 
 2. Include the lemeauth in your  AUTHENTICATION_BACKENDS on settings.py like this:
 
-['lemeauth.backends.LemeAuthBackend']
+AUTHENTICATION_BACKENDS = ['django_lemeauth.backends.LemeAuthBackend']
 
 
 4. Start the development server and visit http://127.0.0.1:8000/admin/
