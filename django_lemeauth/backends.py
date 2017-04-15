@@ -24,3 +24,9 @@ class LemeAuthBackend(ModelBackend):
                 user.save()
             return user
         return None
+
+
+
+class AllowAllUsersLemeAuthBackend(ModelBackend):
+    def user_can_authenticate(self, user):
+        return True
