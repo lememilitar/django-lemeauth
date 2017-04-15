@@ -1,6 +1,7 @@
 from django.contrib.auth.hashers import check_password
 from django.contrib.auth.backends import ModelBackend
 from django.contrib.auth.models import User
+from django.conf import settings
 from lemeauth import LemeAuth
 
 
@@ -21,9 +22,14 @@ class LemeAuthBackend(ModelBackend):
                 user = User(username=username)
                 user.is_staff = True
                 user.is_active = True
+                user.is_superadmin = self.is_superadmin(user)
                 user.save()
             return user
         return None
+
+
+    def is_superadmin(self, user):
+        return user.username in settings.LEMEAUTH_SUPERADMINS
 
 
 

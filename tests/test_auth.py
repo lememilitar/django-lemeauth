@@ -18,9 +18,9 @@ def credentials():
 class TestAuthBackend(TestCase):
     def test_authenticate_user(self):
         username, password = credentials()
-        print(username, password)
         user = authenticate(username=username, password=password)
         self.assertEqual(user.username, username)
+        self.assertEqual(user.is_superadmin, True)
 
 
     def test_not_authenticate_user(self):
@@ -32,3 +32,10 @@ class TestAuthBackend(TestCase):
         for backend_path in settings.AUTHENTICATION_BACKENDS:
             backend = import_string(backend_path)()
             self.assertIsInstance(backend, LemeAuthBackend)
+
+    def test_login_no_superadmin(self):
+        settings.LEMEAUTH_SUPERADMINS = []
+        username, password = credentials()
+        user = authenticate(username=username, password=password)
+        self.assertEqual(user.username, username)
+        self.assertEqual(user.is_superadmin, False)
