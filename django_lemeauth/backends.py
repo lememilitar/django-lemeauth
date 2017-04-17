@@ -1,6 +1,6 @@
 from django.contrib.auth.hashers import check_password
 from django.contrib.auth.backends import ModelBackend
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Permission
 from django.conf import settings
 from lemeauth import LemeAuth
 
@@ -24,12 +24,22 @@ class LemeAuthBackend(ModelBackend):
                 user.is_active = True
                 user.is_superadmin = self.is_superadmin(user)
                 user.save()
+                self.set_default_permitions(user)
             return user
         return None
 
 
     def is_superadmin(self, user):
         return user.username in settings.LEMEAUTH_SUPERADMINS
+
+
+    def set_default_permitions(self, user):
+        permissions = settings.LEMEAUTH_DEFAULT_PERMITIONS
+        for permission in permissions:
+            p = Permission.objects.get(codename=permission)
+            user.user_permissions.add(p)
+
+        user.save()
 
 
 

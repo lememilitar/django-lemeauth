@@ -109,3 +109,4 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
 
 LEMEAUTH_SUPERADMINS = [os.getenv('USER')]
+LEMEAUTH_DEFAULT_PERMITIONS = ['change_user']
