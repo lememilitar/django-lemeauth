@@ -14,6 +14,7 @@ class LemeAuthBackend(ModelBackend):
         if username is None:
             username = kwargs.get(UserModel.USERNAME_FIELD)
 
+        username = username.lower()
         auth = LemeAuth(username, password)
         if auth.login():
             try:
