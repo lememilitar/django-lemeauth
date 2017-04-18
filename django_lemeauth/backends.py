@@ -34,7 +34,7 @@ class LemeAuthBackend(ModelBackend):
 
 
     def set_default_permitions(self, user):
-        permissions = settings.LEMEAUTH_DEFAULT_PERMITIONS
+        permissions = settings.LEMEAUTH_DEFAULT_PERMISSIONS
         for permission in permissions:
             p = Permission.objects.get(codename=permission)
             user.user_permissions.add(p)
