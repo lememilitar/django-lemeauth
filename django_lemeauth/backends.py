@@ -29,13 +29,13 @@ class LemeAuthBackend(ModelBackend):
     def is_superadmin(self, user):
         return user.username in settings.LEMEAUTH_SUPERADMINS
 
-   def set_default_permissions(self, user):
-       permissions = settings.LEMEAUTH_DEFAULT_PERMISSIONS
-       for permission in permissions:
-           p = Permission.objects.get(codename=permission)
-           user.user_permissions.add(p)
+    def set_default_permissions(self, user):
+        permissions = settings.LEMEAUTH_DEFAULT_PERMISSIONS
+        for permission in permissions:
+            p = Permission.objects.get(codename=permission)
+            user.user_permissions.add(p)
 
-       user.save()
+        user.save()
 
 
 class AllowAllUsersLemeAuthBackend(ModelBackend):
