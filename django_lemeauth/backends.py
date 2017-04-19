@@ -21,7 +21,7 @@ class LemeAuthBackend(ModelBackend):
                 user.is_active = True
                 user.is_superadmin = self.is_superadmin(user)
                 user.save()
-                self.set_default_permissions
+                self.set_default_permissions(user)
             return user
         return None
 

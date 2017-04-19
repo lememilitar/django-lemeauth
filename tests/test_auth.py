@@ -4,6 +4,7 @@ import unittest
 
 from django.test import TestCase
 from django.contrib.auth import authenticate
+from django.contrib.auth.models import User
 from django.conf import settings
 from django.core.exceptions import PermissionDenied
 from django.utils.module_loading import import_string
@@ -39,3 +40,10 @@ class TestAuthBackend(TestCase):
         user = authenticate(username=username, password=password)
         self.assertEqual(user.username, username)
         self.assertEqual(user.is_superadmin, False)
+
+    def test_default_permitions_is_setted_after_login(self):
+        username, password = credentials()
+        user = authenticate(username=username, password=password)
+        self.assertTrue(user in User.objects.all())
+        print(user.user_permissions.all())
+        self.assertTrue(user.has_perm('auth.change_user'))
