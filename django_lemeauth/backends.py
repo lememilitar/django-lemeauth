@@ -6,7 +6,7 @@ from lemeauth import LemeAuth
 
 class LemeAuthBackend(ModelBackend):
     """
-        Authenticate using use API
+        Authenticate using the API
     """
 
     def authenticate(self, request, username=None, password=None, **kwargs):
@@ -19,15 +19,16 @@ class LemeAuthBackend(ModelBackend):
                 user = User(username=username)
                 user.is_staff = True
                 user.is_active = True
-                user.is_superadmin = self.is_superadmin(user)
+                user.is_superuser = self.is_superuser(user)
                 user.save()
                 self.set_default_permissions(user)
             return user
         return None
 
 
-    def is_superadmin(self, user):
-        return user.username in settings.LEMEAUTH_SUPERADMINS
+    def is_superuser(self, user):
+        included = user.username in settings.LEMEAUTH_SUPERADMINS
+        return included
 
     def set_default_permissions(self, user):
         permissions = settings.LEMEAUTH_DEFAULT_PERMISSIONS

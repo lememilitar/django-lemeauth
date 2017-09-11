@@ -39,7 +39,7 @@ class TestAuthBackend(TestCase):
         username, password = credentials()
         user = authenticate(username=username, password=password)
         self.assertEqual(user.username, username)
-        self.assertEqual(user.is_superadmin, False)
+        self.assertEqual(user.is_superuser, False)
 
     def test_default_permitions_is_setted_after_login(self):
         username, password = credentials()
